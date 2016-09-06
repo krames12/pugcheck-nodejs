@@ -55,8 +55,8 @@ function getCharacterInfo(characterReq, characterRes, callback) {
     });
 }
 
-var classIds = {
-  {
+var classIds = [
+  { 
     "id": 1,
     "name": "warrior"
   }, {
@@ -92,8 +92,8 @@ var classIds = {
   }, {
     "id": 12,
     "name": "demon-hunter"
-  },
-}
+  }
+]
 
 function sortParsedData(err, data) {
     if (err) {
