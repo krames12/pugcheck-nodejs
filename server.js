@@ -55,56 +55,52 @@ function getCharacterInfo(characterReq, characterRes, callback) {
     });
 }
 
-var classIds = [
-  { 
-    "id": 1,
-    "name": "warrior"
-  }, {
-    "id": 2,
-    "name": "paladin"
-  }, {
-    "id": 3,
-    "name": "hunter"
-  }, {
-    "id": 4,
-    "name": "rogue"
-  }, {
-    "id": 5,
-    "name": "priest"
-  }, {
-    "id": 6,
-    "name": "death-knight"
-  }, {
-    "id": 7,
-    "name": "shaman"
-  }, {
-    "id": 8,
-    "name": "mage"
-  }, {
-    "id": 9,
-    "name": "warlock"
-  }, {
-    "id": 10,
-    "name": "monk"
-  }, {
-    "id": 11,
-    "name": "druid"
-  }, {
-    "id": 12,
-    "name": "demon-hunter"
+// determining character's class based on class id sent from the API
+function classIdentity(classId) {
+  switch (classId) {
+    case 1:
+      return "warrior"
+    case 2:
+      return "paladin"
+    case 3:
+      return "hunter"
+    case 4:
+      return "rogue"
+    case 5:
+      return "priest"
+    case 6:
+      return "death-knight"
+    case 7:
+      return "shaman"
+    case 8:
+      return "mage"
+    case 9:
+      return "warlock"
+    case 10:
+      return "monk"
+    case 11:
+      return "druid"
+    case 12:
+      return "demon-hunter"
+    default:
+      return null
   }
-]
+}
 
+// overall sorting and filtering of data
 function sortParsedData(err, data) {
     if (err) {
       return err;
     } else {
+      
+      // sorting out character info and progress info
       var sortData = {
         "name": data.name,
+        "class": classIdentity(data.class),
         "realm": data.realm,
         "itemLevel": data.items.averageItemLevel,
         "progress": data.progression.raids.filter((item, index) => {
-          if(item.name == "The Emerals Nightmare" || item.name == "The Nighthold") {
+          if(item.name == "The Emerals Nightmare" || item.name == "The Nighthold" || item.name == "Hellfire Citadel") {
             return item;
           }
         })
