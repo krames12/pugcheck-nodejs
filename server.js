@@ -2,10 +2,13 @@ const https = require('https');
 const express = require('express');
 const app = express();
 
+// setting ejs as templating engine
 app.set('view engine', 'ejs');
+// allowing access to public folder from the server
+app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-    res.send('ohai there');
+    res.render('index');
 });
 
 app.get('/thing', (req, res) => {
@@ -92,7 +95,7 @@ function sortParsedData(err, data) {
     if (err) {
       return err;
     } else {
-      
+
       // sorting out character info and progress info
       var sortData = {
         "name": data.name,
@@ -101,7 +104,7 @@ function sortParsedData(err, data) {
         "itemLevel": data.items.averageItemLevel,
         "progress": data.progression.raids.filter((item, index) => {
           // HFC is only for testing until the raid opens up AND the armory starts updating again
-          // item.name == "The Emerals Nightmare" || item.name == "The Nighthold" 
+          // item.name == "The Emerals Nightmare" || item.name == "The Nighthold"
           if(item.name == "Hellfire Citadel") {
             return item;
           }
