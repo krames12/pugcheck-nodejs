@@ -100,7 +100,9 @@ function sortParsedData(err, data) {
         "realm": data.realm,
         "itemLevel": data.items.averageItemLevel,
         "progress": data.progression.raids.filter((item, index) => {
-          if(item.name == "The Emerals Nightmare" || item.name == "The Nighthold" || item.name == "Hellfire Citadel") {
+          // HFC is only for testing until the raid opens up AND the armory starts updating again
+          // item.name == "The Emerals Nightmare" || item.name == "The Nighthold" 
+          if(item.name == "Hellfire Citadel") {
             return item;
           }
         })
