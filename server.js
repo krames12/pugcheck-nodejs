@@ -16,7 +16,10 @@ app.get('/thing', (req, res) => {
 });
 
 app.get('/us/:server/:characterName', (req, res) => {
-      getCharacterInfo(req, res, displayParsedData);
+  var characterUrl = '/us/' + req.params.server + '/' + req.params.characterName;
+
+  var characterInfo = getCharacterInfo(req, res, displayParsedData);
+  res.redirect('character-info', {character: characterInfo});
 });
 
 app.use(function(req, res, next) {
