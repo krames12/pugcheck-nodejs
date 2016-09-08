@@ -1,17 +1,13 @@
 $(document).ready(function() {
 
   $('#search-form').on('submit', function() {
-    var characterName = $('#character-name');
-    var serverName = $('#server-name');
+    var characterName = $('#character-name').val();
+    var serverName = $('#server-name').val();
 
-    var searchInfo = {
-      "name": characterName.val(),
-      "server": serverName.val(),
-      "characterUrl": "/us/" + this.name + '/' + this.server
-    };
+    var characterUrl = "/us/" + serverName + '/' + characterName;
 
-    window.location.href = searchInfo.characterUrl;
-    
+    window.location.href = characterUrl;
+
     return false;
   });
 

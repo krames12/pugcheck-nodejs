@@ -15,13 +15,6 @@ app.get('/thing', (req, res) => {
    res.send('this is thing');
 });
 
-/*app.get('/us/:server/:characterName', (req, res) => {
-  var characterUrl = '/us/' + req.params.server + '/' + req.params.characterName;
-
-  var characterInfo = getCharacterInfo(req, res, displayParsedData);
-  res.render('character-info', {character: characterInfo});
-});*/
-
 app.get('/us/:server/:characterName', (req, res) => {
 	getCharacterInfo(req, res, displayParsedData);
 });
@@ -31,7 +24,7 @@ app.use(function(req, res, next) {
 });
 
 function getCharacterInfo(characterReq, characterRes, callback) {
-    https.get('https://us.api.battle.net/wow/character/' + characterReq.params.server +  '/' + characterReq.params.characterName + '?fields=progression,items&locale=en_US&apikey=h3ujzfwttckmpcwg8dq3dbv8tmbb9dyw', (res) => {
+    https.get('https://us.api.battle.net/wow/character/' + characterReq.params.server +  '/' + characterReq.params.characterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
 
         res.setEncoding('utf8');
 
@@ -127,7 +120,7 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
       //originRes.send(sortedData);
-      originReq.send(sortedData);
+      originRes.render('character-info', {info: sortedData});
     } else {
       originRes.send("The character " + originReq.params.characterName + " does not exist on " + originReq.params.server);
     }
