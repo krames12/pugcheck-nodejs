@@ -122,7 +122,11 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
       //originRes.send(sortedData);
       originRes.render('character-info', {info: sortedData});
     } else {
-      originRes.send("The character " + originReq.params.characterName + " does not exist on " + originReq.params.server);
+      var characterData = {
+        "name": originReq.params.characterName,
+        "server": originReq.params.server
+      };
+      originRes.render('character-404', {info: characterData});
     }
 }
 
