@@ -12,8 +12,15 @@
 
     <h3>Raid Info:</h3>
     <ul>
-      <% for(var boss in info.progress.bosses) { %>
-        <li><%= boss.bossName %></li>
+      <% for(var i = 0; i < info.progress.length; i++) { %>
+        <li><%= info.progress[i].name %></li>
+        <ul>
+          <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
+            <li>
+              <%= info.progress[i].bosses[b].bossName %>
+            </li>
+          <% } %>
+        </ul>
       <% } %>
     </ul>
 

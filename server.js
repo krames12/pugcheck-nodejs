@@ -108,7 +108,7 @@ function sortParsedData(err, data) {
           if(item.name == "Hellfire Citadel") {
             var raidInfo = {
               "raid": item.name,
-              "bosses": item.bosses.filter((item, index) => {
+              "bosses": item.bosses.map((item, index) => {
                 var bossInfo = {
                   "bossName": item.name,
                   "lfrKills": item.lfrKills,
@@ -116,16 +116,13 @@ function sortParsedData(err, data) {
                   "heroicKills": item.heroicKills,
                   "mythicKills": item.mythicKills
                 };
-                console.log('bossInfo: ' + bossInfo.bossName + " with " + bossInfo.mythicKills + " mythic kills.");
                 return bossInfo;
               })
             }
-            //console.log('raidInfo:', raidInfo);
             return raidInfo;
           }
         })
       }
-
       return sortData;
     }
 }
@@ -134,7 +131,7 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
-      //console.log(sortedData);
+      console.log('sortedData: ' + sortedData.progress[0].bosses[2]);
       originRes.render('character-info', {info: sortedData});
     } else {
       var characterData = {
