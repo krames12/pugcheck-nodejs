@@ -15,7 +15,7 @@ app.get('/thing', (req, res) => {
    res.send('this is thing');
 });
 
-app.get('/us/:server/:characterName', (req, res) => {
+app.get('/:region/:server/:characterName', (req, res) => {
 	getCharacterInfo(req, res, displayParsedData);
 });
 
@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 });
 
 function getCharacterInfo(characterReq, characterRes, callback) {
-    https.get('https://us.api.battle.net/wow/character/' + characterReq.params.server +  '/' + characterReq.params.characterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
+    https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + characterReq.params.characterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
 
         res.setEncoding('utf8');
 
