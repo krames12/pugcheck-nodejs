@@ -8,13 +8,14 @@
 <body>
     <% include partials/search-form.ejs %>
 
-    <p>
-      This is a different page for the character <%= info.name %> with an item level of <%= info.itemLevel %>
-    </p>
+    <p><%= info.name %> has an item level of <%= info.itemLevel %></p>
 
-    <p>
-      Raid Info: <%= info.progress %>
-    </p>
+    <h3>Raid Info:</h3>
+    <ul>
+      <% for(var boss in info.progress.bosses) { %>
+        <li><%= boss.bossName %></li>
+      <% } %>
+    </ul>
 
     <script src="/public/app.js"></script>
 </body>

@@ -106,7 +106,22 @@ function sortParsedData(err, data) {
           // HFC is only for testing until the raid opens up AND the armory starts updating again
           // item.name == "The Emerals Nightmare" || item.name == "The Nighthold"
           if(item.name == "Hellfire Citadel") {
-            return item;
+            var raidInfo = {
+              "raid": item.name,
+              "bosses": item.bosses.filter((item, index) => {
+                var bossInfo = {
+                  "bossName": item.name,
+                  "lfrKills": item.lfrKills,
+                  "normalKills": item.normalKills,
+                  "heroicKills": item.heroicKills,
+                  "mythicKills": item.mythicKills
+                };
+                console.log('bossInfo: ' + bossInfo.bossName + " with " + bossInfo.mythicKills + " mythic kills.");
+                return bossInfo;
+              })
+            }
+            //console.log('raidInfo:', raidInfo);
+            return raidInfo;
           }
         })
       }
@@ -119,7 +134,7 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
-      //originRes.send(sortedData);
+      //console.log(sortedData);
       originRes.render('character-info', {info: sortedData});
     } else {
       var characterData = {
