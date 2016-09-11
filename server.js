@@ -98,30 +98,18 @@ function sortParsedData(err, data) {
 
       // sorting out character info and progress info
       var sortData = {
-        "name": data.name,
-        "class": classIdentity(data.class),
-        "realm": data.realm,
-        "itemLevel": data.items.averageItemLevel,
-        "progress": data.progression.raids.filter((item, index) => {
-          // HFC is only for testing until the raid opens up AND the armory starts updating again
-          // item.name == "The Emerals Nightmare" || item.name == "The Nighthold"
-          if(item.name == "Hellfire Citadel") {
-            var raidInfo = {
-              "raid": item.name,
-              "bosses": item.bosses.map((item, index) => {
-                var bossInfo = {
-                  "bossName": item.name,
-                  "lfrKills": item.lfrKills,
-                  "normalKills": item.normalKills,
-                  "heroicKills": item.heroicKills,
-                  "mythicKills": item.mythicKills
-                };
-                return bossInfo;
-              })
+        name: data.name,
+        class: classIdentity(data.class),
+        realm: data.realm,
+        itemLevel: data.items.averageItemLevel,
+        progress: data.progression.raids
+          .filter((item, index) => {
+            // HFC is only for testing until the raid opens up AND the armory starts updating again
+            // item.name == "The Emerald Nightmare" || item.name == "The Nighthold"
+            if(item.name == "Hellfire Citadel") {
+              return item;
             }
-            return raidInfo;
-          }
-        })
+          })
       }
       return sortData;
     }
@@ -131,7 +119,9 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
-      console.log('sortedData: ' + sortedData.progress[0].bosses[2]);
+      console.log('sortedData keys: ' + Object.keys(sortedData.progress[0].bosses[0]));
+      console.log('sortedData: ' + sortedData.progress[0].name);
+
       originRes.render('character-info', {info: sortedData});
     } else {
       var characterData = {
