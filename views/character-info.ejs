@@ -12,11 +12,11 @@
     <h3>Raid Info:</h3>
     <ul>
       <% for(var i = 0; i < info.progress.length; i++) { %>
-        <li><%= info.progress[i].name %></li>
+        <li><%= info.progress[i].name %> (<%= info.progress[i].mythicProgress %>/13)</li>
         <ul>
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <li>
-              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].heroicKills %> times on Heroic difficulty
+              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].mythicKills %> times on Heroic difficulty
             </li>
           <% } %>
         </ul>

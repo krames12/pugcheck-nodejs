@@ -110,16 +110,40 @@ function sortParsedData(err, data) {
               return item;
             }
           })
+          .map((item, index) => {
+            return {
+              name: item.name,
+              bosses: item.bosses,
+              lfrProgress: difficultyProgress("lfr", item),
+              normalProgress: difficultyProgress("normal", item),
+              heroicProgress: difficultyProgress("heroic", item),
+              mythicProgress: difficultyProgress("mythic", item)
+            };
+          })
       }
       return sortData;
     }
+}
+
+function difficultyProgress (difficulty, bossData) {
+  var killSearch = difficulty + "Kills";
+  console.log("killSearch:", killSearch);
+  var progress = 0;
+
+  for (var b = 0; b < bossData.bosses.length; b++) {
+    if(bossData.bosses[b][killSearch] > 0) {
+      progress++;
+    }
+  }
+
+  return progress;
 }
 
 function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
-      console.log('sortedData keys: ' + Object.keys(sortedData.progress[0].bosses[0]));
+      console.log('sortedData keys: ' + Object.keys(sortedData.progress[0]));
       console.log('sortedData: ' + sortedData.progress[0].name);
 
       originRes.render('character-info', {info: sortedData});
