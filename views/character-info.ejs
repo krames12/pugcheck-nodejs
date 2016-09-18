@@ -6,8 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <% include partials/search-form.ejs %>
-    <p><%= info.name %> has an item level of <%= info.itemLevel %></p>
+    <div class="search">
+      <% include partials/search-form.ejs %>
+    </div>
+    <div class="character-info">
+      <p><%= info.name %> has an item level of <%= info.itemLevel %></p>
+      <img src="/public/images/<%= info.class %>.png" />
+    </div>
 
     <h3>Raid Info:</h3>
     <ul>
@@ -16,7 +21,7 @@
         <ul>
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <li>
-              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].mythicKills %> times on Heroic difficulty
+              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].mythicKills %> times on Mythic difficulty
             </li>
           <% } %>
         </ul>
