@@ -1,8 +1,35 @@
+body {
+  background-color: #263238;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.2em;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.3em;
+}
+
+p {
+  font-size: 1em;
+}
+
+.container {
+  min-width: 310px;
+  width: 75%;
+  margin: auto;
+}
+
 .search-container {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 10%;
+}
+
+#search-form {
+  text-align: center;
+  margin: 20px 0;
 }
 
 .class-icon {
@@ -11,54 +38,71 @@
   border-radius: 50%;
 }
 
+.character-info {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.character-name {
+  font-size: 1.4em;
+}
+
+.item-level {
+  display: block;
+}
+
+.item-level {
+  font-weight: 500;
+}
+
 /* Class colors */
 
 .death-knight {
-  border: 10px solid #C41F3B;
+  border: 8px solid #C41F3B;
 }
 
 .demon-hunter {
-  border: 10px solid #A330C9;
+  border: 8px solid #A330C9;
 }
 
 .druid {
-  border: 10px solid #FF7D0A;
+  border: 8px solid #FF7D0A;
 }
 
 .hunter {
-  border: 10px solid #ABD473;
+  border: 8px solid #ABD473;
 }
 
 .mage {
-  border: 10px solid #69CCF0;
+  border: 8px solid #69CCF0;
 }
 
 .monk {
-  border: 10px solid #00FF96;
+  border: 8px solid #00FF96;
 }
 
 .paladin {
-  border: 10px solid #F58CBA;
+  border: 8px solid #F58CBA;
 }
 
 .priest {
-  border: 10px solid #FFFFFF;
+  border: 8px solid #FFFFFF;
 }
 
 .rogue {
-  border: 10px solid #FFF569;
+  border: 8px solid #FFF569;
 }
 
 .shaman {
-  border: 10px solid #0070DE;
+  border: 8px solid #0070DE;
 }
 
 .warlock {
-  border: 10px solid #9482C9;
+  border: 8px solid #9482C9;
 }
 
 .warrior {
-  border: 10px solid #C79C6E;
+  border: 8px solid #C79C6E;
 }
 
 /* End class colors */

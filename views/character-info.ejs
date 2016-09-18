@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
     <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="/public/reset.css" rel="stylesheet" />
     <link href="/public/styles.css" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
 <body>
+  <div class="container">
     <div class="search">
       <% include partials/search-form.ejs %>
     </div>
     <div class="character-info">
-      <p><%= info.name %> has an item level of <%= info.itemLevel %></p>
+      <p class="character-name"><%= info.name %></p>
       <img src="/public/images/<%= info.class %>.png" alt="<%= info.class %> icon" class="class-icon <%= info.class %>" />
+      <div class="item-level-container">
+        <p class="item-level">
+          Item Level: <span class="item-level"><%=info.itemLevel  %></span>
+        </p>
+      </div>
     </div>
 
-    <h3>Raid Info:</h3>
-    <ul>
+    <h3>Raid Progression</h3>
+    <div class="raid-instance">
       <% for(var i = 0; i < info.progress.length; i++) { %>
-        <li><%= info.progress[i].name %> (<%= info.progress[i].mythicProgress %>/13)</li>
+        <h5><%= info.progress[i].name %> (<%= info.progress[i].mythicProgress %>/13)</h5>
         <ul>
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <li>
@@ -27,9 +35,10 @@
           <% } %>
         </ul>
       <% } %>
-    </ul>
+    </div>
 
     <% include partials/footer.ejs %>
+  </div>
 
     <script src="/public/app.js"></script>
 </body>
