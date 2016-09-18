@@ -1,0 +1,64 @@
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+.class-icon {
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* Class colors */
+
+.death-knight {
+  border: 10px solid #C41F3B;
+}
+
+.demon-hunter {
+  border: 10px solid #A330C9;
+}
+
+.druid {
+  border: 10px solid #FF7D0A;
+}
+
+.hunter {
+  border: 10px solid #ABD473;
+}
+
+.mage {
+  border: 10px solid #69CCF0;
+}
+
+.monk {
+  border: 10px solid #00FF96;
+}
+
+.paladin {
+  border: 10px solid #F58CBA;
+}
+
+.priest {
+  border: 10px solid #FFFFFF;
+}
+
+.rogue {
+  border: 10px solid #FFF569;
+}
+
+.shaman {
+  border: 10px solid #0070DE;
+}
+
+.warlock {
+  border: 10px solid #9482C9;
+}
+
+.warrior {
+  border: 10px solid #C79C6E;
+}
+
+/* End class colors */

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+    <link href="/public/styles.css" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>Document</title>
 </head>
@@ -11,7 +12,7 @@
     </div>
     <div class="character-info">
       <p><%= info.name %> has an item level of <%= info.itemLevel %></p>
-      <img src="/public/images/<%= info.class %>.png" />
+      <img src="/public/images/<%= info.class %>.png" alt="<%= info.class %> icon" class="class-icon <%= info.class %>" />
     </div>
 
     <h3>Raid Info:</h3>
@@ -27,6 +28,8 @@
         </ul>
       <% } %>
     </ul>
+
+    <% include partials/footer.ejs %>
 
     <script src="/public/app.js"></script>
 </body>
