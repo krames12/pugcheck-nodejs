@@ -32,6 +32,10 @@ p {
   margin: 20px 0;
 }
 
+#search-form input[type=text] {
+  color: black;
+}
+
 #find-character-button {
   display: block;
   margin: 20px auto;
@@ -61,62 +65,68 @@ p {
   font-size: 1.4em;
 }
 
+.character-class {
+
+}
+
 .item-level {
   display: block;
 }
 
 .item-level {
+  margin-top: 5px;
   font-weight: 500;
+  font-size: 1.2em;
 }
 
 /* Class colors */
 
 .death-knight {
-  border: 8px solid #C41F3B;
+  border: 6px solid #C41F3B;
 }
 
 .demon-hunter {
-  border: 8px solid #A330C9;
+  border: 6px solid #A330C9;
 }
 
 .druid {
-  border: 8px solid #FF7D0A;
+  border: 6px solid #FF7D0A;
 }
 
 .hunter {
-  border: 8px solid #ABD473;
+  border: 6px solid #ABD473;
 }
 
 .mage {
-  border: 8px solid #69CCF0;
+  border: 6px solid #69CCF0;
 }
 
 .monk {
-  border: 8px solid #00FF96;
+  border: 6px solid #00FF96;
 }
 
 .paladin {
-  border: 8px solid #F58CBA;
+  border: 6px solid #F58CBA;
 }
 
 .priest {
-  border: 8px solid #FFFFFF;
+  border: 6px solid #FFFFFF;
 }
 
 .rogue {
-  border: 8px solid #FFF569;
+  border: 6px solid #FFF569;
 }
 
 .shaman {
-  border: 8px solid #0070DE;
+  border: 6px solid #0070DE;
 }
 
 .warlock {
-  border: 8px solid #9482C9;
+  border: 6px solid #9482C9;
 }
 
 .warrior {
-  border: 8px solid #C79C6E;
+  border: 6px solid #C79C6E;
 }
 
 /* End class colors */
@@ -134,7 +144,7 @@ p {
   margin: 0 auto;
 }
 
-.not-expanded, .expanded {
+.collapsed, .expanded {
   float: left;
   text-align: left;
 }
@@ -151,4 +161,8 @@ p {
 .not-killed {
   opacity: 0;
   font-size: 1em;
+}
+
+footer {
+  text-align: center;
 }

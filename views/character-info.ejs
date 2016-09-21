@@ -28,7 +28,7 @@
     <h3>Raid Progression</h3>
     <div class="raid-instance">
       <% for(var i = 0; i < info.progress.length; i++) { %>
-        <span class="not-expanded icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= info.progress[i].normalProgress %>/<%= info.progress[i].totalBosses %>)</h5>
+        <span class="collapsed icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= info.progress[i].normalProgress %>/<%= info.progress[i].totalBosses %>)</h5>
         <ul class="raid-bosses">
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <li>
