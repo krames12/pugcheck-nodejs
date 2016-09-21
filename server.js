@@ -24,38 +24,57 @@ app.use(function(req, res, next) {
 });
 
 function getCharacterInfo(characterReq, characterRes, callback) {
-    https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + characterReq.params.characterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
+  var cleanCharacterName = htmlEncode(characterReq.params.characterName);
 
-        res.setEncoding('utf8');
+  https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
 
-        console.log('statusCode:', res.statusCode);
-        console.log('headers:', res.headers);
-        console.log('Request made for ' + characterReq.params.characterName + ' on the server ' + characterReq.params.server);
+      res.setEncoding('utf8');
 
-        // variable for incoming data
-        var body = '';
+      console.log('statusCode:', res.statusCode);
+      console.log('headers:', res.headers);
+      console.log('Request made for ' + cleanCharacterName + ' on the server ' + characterReq.params.server);
 
-        // parses through data as it's recieved. buffer or not.
-        res.on('data', (d) => {
-            //process.stdout.write(d);
-            body += d;
-        });
+      // variable for incoming data
+      var body = '';
 
-        // parses the recieved data and sends it to the callback function. also catches any errors.
-        res.on('end', () => {
-           try {
-               var parsed = JSON.parse(body);
-           } catch (err) {
-               console.error('Unable to parse: ', err);
-               return callback(err);
-           }
-           console.log("statusCodev2: " + res.statusCode);
-           callback(null, parsed, characterReq, characterRes, res.statusCode);
-        });
+      // parses through data as it's recieved. buffer or not.
+      res.on('data', (d) => {
+          //process.stdout.write(d);
+          body += d;
+      });
 
-    }).on('error', (e) => {
-        callback(e);
-    });
+      // parses the recieved data and sends it to the callback function. also catches any errors.
+      res.on('end', () => {
+         try {
+             var parsed = JSON.parse(body);
+         } catch (err) {
+             console.error('Unable to parse: ', err);
+             return callback(err);
+         }
+         console.log("statusCodev2: " + res.statusCode);
+         callback(null, parsed, characterReq, characterRes, res.statusCode);
+      });
+
+  }).on('error', (e) => {
+      callback(e);
+  });
+}
+
+// check character names for special characters
+function htmlEncode(characterName) {
+  var n = characterName.length;
+  var encoded = [];
+
+  while (n--) {
+    var charCode = characterName[n].charCodeAt();
+    if (charCode < 65 || charCode > 127 || (charCode > 90 && charCode < 96)) {
+      encoded[n] = encodeURI(characterName[n]);
+    } else {
+      encoded[n] = characterName[n];
+    }
+  }
+
+  return encoded.join('');
 }
 
 // determining character's class based on class id sent from the API
@@ -92,37 +111,37 @@ function classIdentity(classId) {
 
 // overall sorting and filtering of data
 function sortParsedData(err, data) {
-    if (err) {
-      return err;
-    } else {
+  if (err) {
+    return err;
+  } else {
 
-      // sorting out character info and progress info
-      var sortData = {
-        name: data.name,
-        class: classIdentity(data.class),
-        realm: data.realm,
-        itemLevel: data.items.averageItemLevel,
-        progress: data.progression.raids
-          .filter((item, index) => {
-            // HFC is only for testing until the raid opens up AND the armory starts updating again
-            // item.name == "The Emerald Nightmare" || item.name == "The Nighthold"
-            if(item.name == "Hellfire Citadel") {
-              return item;
-            }
-          })
-          .map((item, index) => {
-            return {
-              name: item.name,
-              bosses: item.bosses,
-              lfrProgress: difficultyProgress("lfr", item),
-              normalProgress: difficultyProgress("normal", item),
-              heroicProgress: difficultyProgress("heroic", item),
-              mythicProgress: difficultyProgress("mythic", item)
-            };
-          })
-      }
-      return sortData;
+    // sorting out character info and progress info
+    var sortData = {
+      name: data.name,
+      class: classIdentity(data.class),
+      realm: data.realm,
+      itemLevel: data.items.averageItemLevel,
+      progress: data.progression.raids
+        .filter((item, index) => {
+          // HFC is only for testing until the raid opens up AND the armory starts updating again
+          // item.name == "The Emerald Nightmare" || item.name == "The Nighthold"
+          if(item.name == "Hellfire Citadel") {
+            return item;
+          }
+        })
+        .map((item, index) => {
+          return {
+            name: item.name,
+            bosses: item.bosses,
+            lfrProgress: difficultyProgress("lfr", item),
+            normalProgress: difficultyProgress("normal", item),
+            heroicProgress: difficultyProgress("heroic", item),
+            mythicProgress: difficultyProgress("mythic", item)
+          };
+        })
     }
+    return sortData;
+  }
 }
 
 function difficultyProgress (difficulty, bossData) {
