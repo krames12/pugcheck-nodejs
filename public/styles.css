@@ -32,8 +32,14 @@ p {
   margin: 20px 0;
 }
 
+#search-form input[type=text], #search-form select {
+  background-color: #263238;
+  border: 1px solid #F24236;
+  padding: 3px;
+}
+
 #search-form input[type=text] {
-  color: black;
+  outline: none;
 }
 
 #find-character-button {
