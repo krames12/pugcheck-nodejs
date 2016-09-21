@@ -27,11 +27,11 @@
     <h3>Raid Progression</h3>
     <div class="raid-instance">
       <% for(var i = 0; i < info.progress.length; i++) { %>
-        <h5><%= info.progress[i].name %> (<%= info.progress[i].mythicProgress %>/13)</h5>
+        <h5><%= info.progress[i].name %> (<%= info.progress[i].mythicProgress %>/<%= info.progress[i].totalBosses %>)</h5>
         <ul>
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <li>
-              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].mythicKills %> times on Mythic difficulty
+              <%= info.progress[i].bosses[b].name %> killed <%= info.progress[i].bosses[b].heroicKills %> times on Normal difficulty
             </li>
           <% } %>
         </ul>

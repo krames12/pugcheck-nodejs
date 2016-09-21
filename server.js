@@ -125,7 +125,7 @@ function sortParsedData(err, data) {
         .filter((item, index) => {
           // HFC is only for testing until the raid opens up AND the armory starts updating again
           // item.name == "The Emerald Nightmare" || item.name == "The Nighthold"
-          if(item.name == "Hellfire Citadel") {
+          if(item.name == "The Emerald Nightmare") {
             return item;
           }
         })
@@ -133,6 +133,7 @@ function sortParsedData(err, data) {
           return {
             name: item.name,
             bosses: item.bosses,
+            totalBosses: bossTotal(item.bosses),
             lfrProgress: difficultyProgress("lfr", item),
             normalProgress: difficultyProgress("normal", item),
             heroicProgress: difficultyProgress("heroic", item),
@@ -144,9 +145,20 @@ function sortParsedData(err, data) {
   }
 }
 
+// Obtains total bosses in an instance
+function bossTotal(bossData) {
+  var bossCount = 0;
+
+  for(var b = 0; b < bossData.length; b++) {
+    bossCount++;
+  }
+
+  return bossCount;
+}
+
+// Obtains bosses killed for a given raid difficulty
 function difficultyProgress (difficulty, bossData) {
   var killSearch = difficulty + "Kills";
-  console.log("killSearch:", killSearch);
   var progress = 0;
 
   for (var b = 0; b < bossData.bosses.length; b++) {
