@@ -32,6 +32,20 @@ p {
   margin: 20px 0;
 }
 
+#find-character-button {
+  display: block;
+  margin: 20px auto;
+  width: 150px;
+  height: 50px;
+  background-color: #263238;
+  border: 1px solid #F24236;
+  transition: all 0.3s ease-in-out;
+}
+
+#find-character-button:hover {
+  background-color: #F24236;
+}
+
 .class-icon {
   margin: 10px auto;
   padding: 10px;
@@ -106,3 +120,35 @@ p {
 }
 
 /* End class colors */
+
+.raid-instance {
+  margin: 20px auto;
+  width: 80%;
+  max-width: 500px;
+  padding: 20px;
+  border-top: 1px solid #F24236;
+  border-bottom: 1px solid #F24236;
+}
+
+.raid-bosses {
+  margin: 0 auto;
+}
+
+.not-expanded, .expanded {
+  float: left;
+  text-align: left;
+}
+
+.instance-name {
+  text-align: center;
+}
+
+.killed {
+  color: white;
+  font-size: 1em;
+}
+
+.not-killed {
+  opacity: 0;
+  font-size: 1em;
+}
