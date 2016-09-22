@@ -1,5 +1,6 @@
 const https = require('https');
 const express = require('express');
+const access = require('./access');
 const app = express();
 
 // setting ejs as templating engine
@@ -26,7 +27,7 @@ app.use(function(req, res, next) {
 function getCharacterInfo(characterReq, characterRes, callback) {
   var cleanCharacterName = htmlEncode(characterReq.params.characterName);
 
-  https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=APIKEY', (res) => {
+  https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz, (res) => {
 
       res.setEncoding('utf8');
 
