@@ -25,7 +25,7 @@
         </p>
       </div>
     </div>
-    
+
     <h3>Raid Progression</h3>
     <div class="raid-instance">
       <% for(var i = 0; i < info.progress.length; i++) { %>
@@ -45,15 +45,15 @@
           <% difficulty = "Looking for Raid"; %>
           <% progress = info.progress[i].lfrProgress; %>
         <% } %>
-        
-        <span class="collapsed icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
+
+        <span class="collapse icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
         <p class="difficulty"><%= difficulty %></p>
         <ul class="raid-bosses hidden">
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
             <% if(difficulty == "Mythic") { %>
               <% kills = info.progress[i].bosses[b].mythicKills; %>
             <% } else if(difficulty == "Heroic") { %>
-              <% kills = info.progress[i].bosses[b].heroicKills; %> 
+              <% kills = info.progress[i].bosses[b].heroicKills; %>
             <% } else if(difficulty == "Normal") { %>
               <% kills = info.progress[i].bosses[b].normalKills; %>
             <% } else if(difficulty == "Looking for Raid") { %>

@@ -12,6 +12,18 @@ $(document).ready(function() {
     return false;
   });
 
-  
+  $('.raid-instance').on('click', function() {
+    toggleBossList();
+  });
 
 });
+
+function toggleBossList() {
+  if($('.raid-bosses').hasClass('hidden')) {
+    $('.raid-bosses').removeClass('hidden').addClass('visible');
+    $('.collapse').removeClass('icon-plus').addClass('icon-minus');
+  } else {
+    $('.raid-bosses').removeClass('visible').addClass('hidden');
+    $('.collapse').removeClass('icon-minus').addClass('icon-plus');
+  }
+}
