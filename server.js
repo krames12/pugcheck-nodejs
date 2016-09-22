@@ -175,8 +175,6 @@ function displayParsedData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
-      console.log('sortedData keys: ' + Object.keys(sortedData.progress[0]));
-      console.log('sortedData: ' + sortedData.progress[0].name);
 
       originRes.render('character-info', {info: sortedData});
     } else {
