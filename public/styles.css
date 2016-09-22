@@ -2,7 +2,6 @@ body {
   background-color: #263238;
   color: white;
   font-family: 'Roboto', sans-serif;
-  line-height: 1.2em;
 }
 
 h3 {
@@ -24,22 +23,38 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10%;
 }
 
 #search-form {
-  text-align: center;
   margin: 20px 0;
 }
 
-#search-form input[type=text], #search-form select {
+#search-form input, #search-form label {
+  display: block;
+}
+
+#search-form input[type=text], #region-name {
   background-color: #263238;
   border: 1px solid #F24236;
   padding: 3px;
 }
 
+#search-form label {
+  margin-top: 5px;
+  text-align: left;
+}
+
 #search-form input[type=text] {
   outline: none;
+  margin-bottom: 10px;
+}
+
+#region-label {
+  float: left;
+}
+
+#region-name {
+  margin: 0px 5px 5px 5px;
 }
 
 #find-character-button {
@@ -69,10 +84,6 @@ p {
 
 .character-name {
   font-size: 1.4em;
-}
-
-.character-class {
-
 }
 
 .item-level {
@@ -138,21 +149,33 @@ p {
 /* End class colors */
 
 .raid-instance {
-  margin: 20px auto;
+  margin: 15px auto;
   width: 80%;
   max-width: 500px;
-  padding: 20px;
+  padding: 10px;
   border-top: 1px solid #F24236;
   border-bottom: 1px solid #F24236;
+}
+
+.difficulty {
+  text-align: center;
+  margin: 3px;
 }
 
 .raid-bosses {
   margin: 0 auto;
 }
 
-.collapsed, .expanded {
-  float: left;
-  text-align: left;
+.raid-bosses li {
+  margin: 5px 0;
+}
+
+.hidden {
+  height: 0%;
+}
+
+.visible {
+  height: 100%;
 }
 
 .instance-name {
@@ -167,6 +190,12 @@ p {
 .not-killed {
   opacity: 0;
   font-size: 1em;
+}
+
+.collapsed, .expanded {
+  float: left;
+  text-align: left;
+  margin-top: 10px;
 }
 
 footer {

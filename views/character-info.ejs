@@ -8,11 +8,12 @@
     <link href="/public/reset.css" rel="stylesheet" />
     <link href="/public/styles.css" rel="stylesheet" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
   <div class="container">
-    <div class="search">
+    <div class="search-container">
       <% include partials/search-form.ejs %>
     </div>
     <div class="character-info">
@@ -24,15 +25,42 @@
         </p>
       </div>
     </div>
-
+    
     <h3>Raid Progression</h3>
     <div class="raid-instance">
       <% for(var i = 0; i < info.progress.length; i++) { %>
-        <span class="collapsed icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= info.progress[i].normalProgress %>/<%= info.progress[i].totalBosses %>)</h5>
-        <ul class="raid-bosses">
+        <!-- Setting the difficulty to the highest with progress -->
+        <% var difficulty = "", progress = 0, kills; %>
+        <% if(info.progress[i].mythicProgress > 0) { %>
+          <% difficulty = "Mythic"; %>
+          <% progress = info.progress[i].mythicProgress; %>
+        <% } else if(info.progress[i].heroicProgress > 0) { %>
+          <% difficulty = "Heroic"; %>
+          <% progress = info.progress[i].heroicProgress; %>
+          <!-- < kills = info.progress[i].heroicKills; %> -->
+        <% } else if(info.progress[i].normalProgress > 0) { %>
+          <% difficulty = "Normal"; %>
+          <% progress = info.progress[i].normalProgress; %>
+        <% } else if(info.progress[i].lfrProgress > 0) { %>
+          <% difficulty = "Looking for Raid"; %>
+          <% progress = info.progress[i].lfrProgress; %>
+        <% } %>
+        
+        <span class="collapsed icon-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
+        <p class="difficulty"><%= difficulty %></p>
+        <ul class="raid-bosses hidden">
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
+            <% if(difficulty == "Mythic") { %>
+              <% kills = info.progress[i].bosses[b].mythicKills; %>
+            <% } else if(difficulty == "Heroic") { %>
+              <% kills = info.progress[i].bosses[b].heroicKills; %> 
+            <% } else if(difficulty == "Normal") { %>
+              <% kills = info.progress[i].bosses[b].normalKills; %>
+            <% } else if(difficulty == "Looking for Raid") { %>
+              <% kills = info.progress[i].bosses[b].lfrKills; %>
+            <% } %>
             <li>
-              <% if(info.progress[i].bosses[b].normalKills > 0) { %>
+              <% if(kills > 0) { %>
                 <span class="killed icon-checkmark"></span>
               <% } else { %>
                 <span class="not-killed icon-checkmark"></span>
