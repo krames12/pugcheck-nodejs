@@ -17,16 +17,15 @@ app.get('/thing', (req, res) => {
 });
 
 app.get('/:region/:server/:characterName', (req, res) => {
-	getCharacterInfo(req, res, displayParsedData);
+  var cleanCharacterName = htmlEncode(req.params.characterName);
+	getCharacterInfo(req, res, cleanCharacterName, displayParsedData);
 });
 
 app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
 });
 
-function getCharacterInfo(characterReq, characterRes, callback) {
-  var cleanCharacterName = htmlEncode(characterReq.params.characterName);
-
+function getCharacterInfo(characterReq, characterRes, cleanCharacterName, callback) {
   https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz, (res) => {
 
       res.setEncoding('utf8');

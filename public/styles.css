@@ -54,7 +54,7 @@ p {
 }
 
 #region-name {
-  margin: 0px 5px 5px 5px;
+  margin: 0px 5px 5px 10px;
 }
 
 #find-character-button {
@@ -185,6 +185,7 @@ p {
 .killed-box {
   color: white;
   font-size: 1em;
+  margin: 3px;
 }
 
 .collapse {
