@@ -21,9 +21,9 @@ $(document).ready(function() {
 function toggleBossList() {
   if($('.raid-bosses').hasClass('hidden')) {
     $('.raid-bosses').removeClass('hidden').addClass('visible');
-    $('.collapse').removeClass('icon-plus').addClass('icon-minus');
+    $('.collapse').removeClass('fa-plus').addClass('fa-minus');
   } else {
     $('.raid-bosses').removeClass('visible').addClass('hidden');
-    $('.collapse').removeClass('icon-minus').addClass('icon-plus');
+    $('.collapse').removeClass('fa-minus').addClass('fa-plus');
   }
 }

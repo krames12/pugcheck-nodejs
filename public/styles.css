@@ -182,13 +182,8 @@ p {
   text-align: center;
 }
 
-.killed {
+.killed-box {
   color: white;
-  font-size: 1em;
-}
-
-.not-killed {
-  opacity: 0;
   font-size: 1em;
 }
 
