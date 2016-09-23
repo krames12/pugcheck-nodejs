@@ -17,22 +17,25 @@ app.get('/thing', (req, res) => {
 });
 
 app.get('/:region/:server/:characterName', (req, res) => {
-  var cleanCharacterName = htmlEncode(req.params.characterName);
-	getCharacterInfo(req, res, cleanCharacterName, displayParsedData);
+  var cleanCharacterName = htmlEncode(req.params.characterName),
+    blizzRequestUrl = 'https://' + req.params.region + '.api.battle.net/wow/character/' + req.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz,
+    wclRequestUrl = 'https://www.warcraftlogs.com:443/v1/rankings/character/' + cleanCharacterName + '/' + req.params.server + '/' + req.params.region + '?api_key=' + access.keys.wcl;
+    
+	getRequest(blizzRequestUrl, req, res, parseCharacterData);
 });
 
 app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
 });
 
-function getCharacterInfo(characterReq, characterRes, cleanCharacterName, callback) {
-  https.get('https://' + characterReq.params.region + '.api.battle.net/wow/character/' + characterReq.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz, (res) => {
+function getRequest(requestUrl, originReq, originRes, callback) {
+  https.get(requestUrl, (res) => {
 
       res.setEncoding('utf8');
 
       console.log('statusCode:', res.statusCode);
       console.log('headers:', res.headers);
-      console.log('Request made for ' + cleanCharacterName + ' on the server ' + characterReq.params.server);
+      console.log('Request made for ' + originReq.params.characterName + ' on the server ' + originReq.params.server);
 
       // variable for incoming data
       var body = '';
@@ -52,7 +55,7 @@ function getCharacterInfo(characterReq, characterRes, cleanCharacterName, callba
              return callback(err);
          }
          console.log("statusCodev2: " + res.statusCode);
-         callback(null, parsed, characterReq, characterRes, res.statusCode);
+         callback(null, parsed, originReq, originRes, res.statusCode);
       });
 
   }).on('error', (e) => {
@@ -110,7 +113,7 @@ function classIdentity(classId) {
 }
 
 // overall sorting and filtering of data
-function sortParsedData(err, data) {
+function sortParsedData(err, data, req, res) {
   if (err) {
     return err;
   } else {
@@ -123,8 +126,6 @@ function sortParsedData(err, data) {
       itemLevel: data.items.averageItemLevel,
       progress: data.progression.raids
         .filter((item, index) => {
-          // HFC is only for testing until the raid opens up AND the armory starts updating again
-          // item.name == "The Emerald Nightmare" || item.name == "The Nighthold"
           if(item.name == "The Emerald Nightmare") {
             return item;
           }
@@ -170,7 +171,7 @@ function difficultyProgress (difficulty, bossData) {
   return progress;
 }
 
-function displayParsedData(err, data, originReq, originRes, statusCode) {
+function parseCharacterData(err, data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
