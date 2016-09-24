@@ -12,54 +12,56 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/thing', (req, res) => {
-   res.send('this is thing');
-});
-
 app.get('/:region/:server/:characterName', (req, res) => {
   var cleanCharacterName = htmlEncode(req.params.characterName),
     blizzRequestUrl = 'https://' + req.params.region + '.api.battle.net/wow/character/' + req.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz,
     wclRequestUrl = 'https://www.warcraftlogs.com:443/v1/rankings/character/' + cleanCharacterName + '/' + req.params.server + '/' + req.params.region + '?api_key=' + access.keys.wcl;
-    
-	getRequest(blizzRequestUrl, req, res, parseCharacterData);
+
+	getRequest(blizzRequestUrl, req, res).then(sortParsedData).then(function(sortData) {
+    res.render('character-info', {info: sortData});
+  }).catch(errorHandle);
 });
 
 app.use(function(req, res, next) {
   res.status(404).send('Sorry cant find that!');
 });
 
-function getRequest(requestUrl, originReq, originRes, callback) {
-  https.get(requestUrl, (res) => {
-
+function getRequest(requestUrl, originReq, originRes) {
+  return new Promise((resolve, reject) => {
+    https.get(requestUrl, (res) => {
       res.setEncoding('utf8');
 
       console.log('statusCode:', res.statusCode);
       console.log('headers:', res.headers);
-      console.log('Request made for ' + originReq.params.characterName + ' on the server ' + originReq.params.server);
+      //console.log('Request made for ' + originReq.params.characterName + ' on the server ' + originReq.params.server);
 
       // variable for incoming data
       var body = '';
 
       // parses through data as it's recieved. buffer or not.
       res.on('data', (d) => {
-          //process.stdout.write(d);
-          body += d;
+        //process.stdout.write(d);
+        body += d;
       });
 
       // parses the recieved data and sends it to the callback function. also catches any errors.
       res.on('end', () => {
-         try {
-             var parsed = JSON.parse(body);
-         } catch (err) {
-             console.error('Unable to parse: ', err);
-             return callback(err);
-         }
-         console.log("statusCodev2: " + res.statusCode);
-         callback(null, parsed, originReq, originRes, res.statusCode);
+        try {
+          var parsed = JSON.parse(body);
+        } catch (err) {
+          return reject(err);
+        }
+        console.log("statusCodev2: " + res.statusCode);
+        if (res.statusCode !== 404){
+          resolve(parsed);
+        } else {
+          reject()
+        }
       });
 
-  }).on('error', (e) => {
-      callback(e);
+    }).on('error', (err) => {
+      reject(err);
+    });
   });
 }
 
@@ -113,38 +115,35 @@ function classIdentity(classId) {
 }
 
 // overall sorting and filtering of data
-function sortParsedData(err, data, req, res) {
-  if (err) {
-    return err;
-  } else {
-
-    // sorting out character info and progress info
-    var sortData = {
-      name: data.name,
-      class: classIdentity(data.class),
-      realm: data.realm,
-      itemLevel: data.items.averageItemLevel,
-      progress: data.progression.raids
-        .filter((item, index) => {
-          if(item.name == "The Emerald Nightmare") {
-            return item;
-          }
-        })
-        .map((item, index) => {
-          return {
-            name: item.name,
-            bosses: item.bosses,
-            totalBosses: bossTotal(item.bosses),
-            lfrProgress: difficultyProgress("lfr", item),
-            normalProgress: difficultyProgress("normal", item),
-            heroicProgress: difficultyProgress("heroic", item),
-            mythicProgress: difficultyProgress("mythic", item)
-          };
-        })
-    }
-    return sortData;
-  }
+function sortParsedData(data) {
+  // sorting out character info and progress info
+  var sortData = {
+    name: data.name,
+    class: classIdentity(data.class),
+    realm: data.realm,
+    itemLevel: data.items.averageItemLevel,
+    progress: data.progression.raids
+      .filter((item, index) => {
+        if(item.name == "The Emerald Nightmare") {
+          return item;
+        }
+      })
+      .map((item, index) => {
+        return {
+          name: item.name,
+          bosses: item.bosses,
+          totalBosses: bossTotal(item.bosses),
+          lfrProgress: difficultyProgress("lfr", item),
+          normalProgress: difficultyProgress("normal", item),
+          heroicProgress: difficultyProgress("heroic", item),
+          mythicProgress: difficultyProgress("mythic", item)
+        };
+      })
+  };
+  console.log('sortData', sortData);
+  return sortData;
 }
+
 
 // Obtains total bosses in an instance
 function bossTotal(bossData) {
@@ -171,7 +170,11 @@ function difficultyProgress (difficulty, bossData) {
   return progress;
 }
 
-function parseCharacterData(err, data, originReq, originRes, statusCode) {
+function errorHandle(err) {
+  originRes.render('character-404');
+}
+
+function parseCharacterData(data, originReq, originRes, statusCode) {
     if (err) throw err;
     if (statusCode !== 404){
       var sortedData = sortParsedData(err, data);
@@ -186,6 +189,6 @@ function parseCharacterData(err, data, originReq, originRes, statusCode) {
     }
 }
 
-app.listen(8080, () => {
+app.listen(8020, () => {
     console.log('app is listening to port 8080');
 });
