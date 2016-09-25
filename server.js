@@ -163,7 +163,7 @@ function sortParsedData(data) {
         };
       })
   };
-  console.log('sortData', sortData);
+  console.log('sortData', sortData.progress[0].bosses[0]);
   return sortData;
 }
 
@@ -191,6 +191,12 @@ function difficultyProgress (difficulty, bossData) {
   }
 
   return progress;
+}
+
+// calculate ranking percentile
+function calculatePercentile(actualRank, totalRanked) {
+  var percentage = Math.floor((actualRank / totalRanked) * 100);
+  return Math.round((100 - percentage));
 }
 
 function errorHandle(err) {
