@@ -12,7 +12,7 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.raid-instance').on('click', function() {
+  $('.raid-instance-title').on('click', function() {
     toggleBossList();
   });
 
