@@ -114,6 +114,27 @@ function classIdentity(classId) {
   }
 }
 
+// determine raid boss ID based on WarcraftLogs seperate ID
+function wclBossId(bossId) {
+  // Emerald Nightmare Boss Id's
+  switch(bossId) {
+    case 1853:
+      return "Nythendra"
+    case 1873:
+      return "Il'gynoth, Heart of Corruption"
+    case 1876:
+      return "Elerethe Renferal"
+    case 1841:
+      return "Ursoc"
+    case 1854:
+      return "Dragons of Nightmare"
+    case 1877:
+      return "Cenarius"
+    case 1864:
+      return "Xavius"
+  }
+}
+
 // overall sorting and filtering of data
 function sortParsedData(data) {
   // sorting out character info and progress info
