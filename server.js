@@ -189,6 +189,6 @@ function parseCharacterData(data, originReq, originRes, statusCode) {
     }
 }
 
-app.listen(8020, () => {
+app.listen(8080, () => {
     console.log('app is listening to port 8080');
 });
