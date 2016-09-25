@@ -17,7 +17,7 @@ app.get('/:region/:server/:characterName', (req, res) => {
     blizzRequestUrl = 'https://' + req.params.region + '.api.battle.net/wow/character/' + req.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz,
     wclRequestUrl = 'https://www.warcraftlogs.com:443/v1/rankings/character/' + cleanCharacterName + '/' + req.params.server + '/' + req.params.region + '?api_key=' + access.keys.wcl;
 
-	getRequest(blizzRequestUrl, req, res).then(sortParsedData).then(function(sortData) {
+	Promise.all([getRequest(blizzRequestUrl, req, res), getRequest(wclRequestUrl, req, res)]).then(sortParsedData).then(function(sortData) {
     res.render('character-info', {info: sortData});
   }).catch(errorHandle);
 });
@@ -53,6 +53,7 @@ function getRequest(requestUrl, originReq, originRes) {
         }
         console.log("statusCodev2: " + res.statusCode);
         if (res.statusCode !== 404){
+          console.log('resolving getRequest');
           resolve(parsed);
         } else {
           reject()
@@ -137,13 +138,14 @@ function wclBossId(bossId) {
 
 // overall sorting and filtering of data
 function sortParsedData(data) {
+  console.log('data after Promise.all()', data);
   // sorting out character info and progress info
   var sortData = {
-    name: data.name,
-    class: classIdentity(data.class),
-    realm: data.realm,
-    itemLevel: data.items.averageItemLevel,
-    progress: data.progression.raids
+    name: data[0].name,
+    class: classIdentity(data[0].class),
+    realm: data[0].realm,
+    itemLevel: data[0].items.averageItemLevel,
+    progress: data[0].progression.raids
       .filter((item, index) => {
         if(item.name == "The Emerald Nightmare") {
           return item;
@@ -193,21 +195,6 @@ function difficultyProgress (difficulty, bossData) {
 
 function errorHandle(err) {
   originRes.render('character-404');
-}
-
-function parseCharacterData(data, originReq, originRes, statusCode) {
-    if (err) throw err;
-    if (statusCode !== 404){
-      var sortedData = sortParsedData(err, data);
-
-      originRes.render('character-info', {info: sortedData});
-    } else {
-      var characterData = {
-        "name": originReq.params.characterName,
-        "server": originReq.params.server
-      };
-      originRes.render('character-404', {info: characterData});
-    }
 }
 
 app.listen(8080, () => {

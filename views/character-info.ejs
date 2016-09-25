@@ -44,6 +44,8 @@
         <% } else if(info.progress[i].lfrProgress > 0) { %>
           <% difficulty = "Looking for Raid"; %>
           <% progress = info.progress[i].lfrProgress; %>
+        <% } else { %>
+          <% difficulty = "Looking For Raid"; %>
         <% } %>
 
         <div class="raid-instance-title">
