@@ -119,26 +119,25 @@ function classIdentity(classId) {
 function wclBossId(bossId) {
   // Emerald Nightmare Boss Id's
   switch(bossId) {
-    case 1853:
-      return "Nythendra"
-    case 1873:
-      return "Il'gynoth, Heart of Corruption"
-    case 1876:
-      return "Elerethe Renferal"
-    case 1841:
-      return "Ursoc"
-    case 1854:
-      return "Dragons of Nightmare"
-    case 1877:
-      return "Cenarius"
-    case 1864:
-      return "Xavius"
+    case "Nythendra":
+      return 1853
+    case "Nythendra":
+      return 1873
+    case "Elerethe Renferal":
+      return 1876
+    case "Ursoc":
+      return 1841
+    case "Dragons of Nightmare":
+      return 1854
+    case "Cenarius":
+      return 1877
+    case "Xavius":
+      return 1864
   }
 }
 
 // overall sorting and filtering of data
 function sortParsedData(data) {
-  console.log('data after Promise.all()', data);
   // sorting out character info and progress info
   var sortData = {
     name: data[0].name,
@@ -154,7 +153,16 @@ function sortParsedData(data) {
       .map((item, index) => {
         return {
           name: item.name,
-          bosses: item.bosses,
+          bosses: item.bosses.map((item, index) => {
+            return {
+              name: item.name,
+              bossId: wclBossId(item.name),
+              lfrKills: item.lfrKills,
+              normalKills: item.normalKills,
+              heroicKills: item.heroicKills,
+              mythicKills: item.mythicKills
+            }
+          }),
           totalBosses: bossTotal(item.bosses),
           lfrProgress: difficultyProgress("lfr", item),
           normalProgress: difficultyProgress("normal", item),
@@ -163,7 +171,7 @@ function sortParsedData(data) {
         };
       })
   };
-  console.log('sortData', sortData.progress[0].bosses[0]);
+  console.log('sortData', sortData.progress[0].bosses);
   return sortData;
 }
 
