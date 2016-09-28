@@ -15,7 +15,6 @@ p {
 
 .container {
   min-width: 310px;
-  width: 100%;
   margin: auto;
 }
 
@@ -150,7 +149,7 @@ p {
 
 .raid-instance {
   margin: 15px auto;
-  width: 95%;
+  width: 100%;
   max-width: 500px;
   padding: 10px;
   border-top: 1px solid #F24236;
@@ -186,6 +185,18 @@ p {
   color: white;
   font-size: 1em;
   margin: 3px;
+}
+
+.logs-header {
+  float: right;
+  margin-top: -30px;
+}
+
+.warcraftlog-report, .warcraftlog-report:hover, .warcraftlog-report.visited {
+  float: right;
+  margin-right: 5px;
+  color: white;
+  text-decoration: none;
 }
 
 .collapse {

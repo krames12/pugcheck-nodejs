@@ -180,22 +180,25 @@ function sortParsedData(data) {
     var currentBoss = sortData.progress[0].bosses[i];
     var logData = data[1];
     var difficulty = 2;
+    currentBoss.highestDifficulty = "Looking For Raid";
 
     if(currentBoss.mythicKills > 0) {
       difficulty = 5;
+      currentBoss.highestDifficulty = "Mythic";
     } else if(currentBoss.heroicKills > 0) {
       difficulty = 4;
+      currentBoss.highestDifficulty = "Heroic";
     } else if(currentBoss.normalKills > 0) {
       difficulty = 3;
+      currentBoss.highestDifficulty = "Normal";
     }
 
     for(var p = 0; p < logData.length; p++) {
       if (currentBoss.bossId === logData[p].encounter && difficulty === logData[p].difficulty) {
         console.log(currentBoss.name + "!!");
-        var reportUrl = "https://www.warcraftlogs.com/report/" + logData[p].reportID;
+        var reportUrl = "https://www.warcraftlogs.com/reports/" + logData[p].reportID;
         currentBoss.warcraftLogs = true;
         currentBoss.reportUrl = reportUrl;
-        currentBoss.percentile = calculatePercentile(logData[p].rank, logData[p].outOf);
       }
     }
   }
@@ -227,12 +230,6 @@ function difficultyProgress (difficulty, bossData) {
   }
 
   return progress;
-}
-
-// calculate ranking percentile
-function calculatePercentile(actualRank, totalRanked) {
-  var percentage = Math.floor((actualRank / totalRanked) * 100);
-  return Math.round((100 - percentage));
 }
 
 app.listen(8080, () => {

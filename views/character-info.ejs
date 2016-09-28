@@ -49,8 +49,13 @@
         <% } %>
 
         <div class="raid-instance-title">
-          <span class="collapse fa fa-plus"></span><h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
+          <span class="collapse fa fa-plus"></span>
+          <h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
           <p class="difficulty"><%= difficulty %></p>
+          <p class="logs-header">
+            <span class="fa fa-link"></span>
+            Logs
+          </p>
         </div>
         <ul class="raid-bosses hidden">
           <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
@@ -70,6 +75,9 @@
                 <span class="killed-box fa fa-square-o"></span>
               <% } %>
               <%= info.progress[i].bosses[b].name %>
+              <% if(info.progress[i].bosses[b].warcraftLogs && difficulty == info.progress[i].bosses[b].highestDifficulty) { %>
+                <a href=<%= info.progress[i].bosses[b].reportUrl %> class="warcraftlog-report fa fa-link"></a>
+              <% } %>
             </li>
           <% } %>
         </ul>
