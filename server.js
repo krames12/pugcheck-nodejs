@@ -56,7 +56,6 @@ function getRequest(requestUrl, originReq, originRes) {
         }
         console.log("statusCodev2: " + res.statusCode);
         if (res.statusCode !== 404){
-          console.log('resolving getRequest');
           resolve(parsed);
         } else {
           reject()
@@ -124,7 +123,7 @@ function wclBossId(bossId) {
   switch(bossId) {
     case "Nythendra":
       return 1853
-    case "Nythendra":
+    case "Il'gynoth, Heart of Corruption":
       return 1873
     case "Elerethe Renferal":
       return 1876
@@ -163,7 +162,8 @@ function sortParsedData(data) {
               lfrKills: item.lfrKills,
               normalKills: item.normalKills,
               heroicKills: item.heroicKills,
-              mythicKills: item.mythicKills
+              mythicKills: item.mythicKills,
+              warcraftLogs: false
             }
           }),
           totalBosses: bossTotal(item.bosses),
@@ -174,13 +174,35 @@ function sortParsedData(data) {
         };
       })
   };
-  
-  
-  
-  console.log('sortData', data[1]);
+
+  // janky loop to add warcraftLogs info to pertaining bosses
+  for(var i = 0; i < sortData.progress[0].bosses.length; i++) {
+    var currentBoss = sortData.progress[0].bosses[i];
+    var logData = data[1];
+    var difficulty = 2;
+
+    if(currentBoss.mythicKills > 0) {
+      difficulty = 5;
+    } else if(currentBoss.heroicKills > 0) {
+      difficulty = 4;
+    } else if(currentBoss.normalKills > 0) {
+      difficulty = 3;
+    }
+
+    for(var p = 0; p < logData.length; p++) {
+      if (currentBoss.bossId === logData[p].encounter && difficulty === logData[p].difficulty) {
+        console.log(currentBoss.name + "!!");
+        var reportUrl = "https://www.warcraftlogs.com/report/" + logData[p].reportID;
+        currentBoss.warcraftLogs = true;
+        currentBoss.reportUrl = reportUrl;
+        currentBoss.percentile = calculatePercentile(logData[p].rank, logData[p].outOf);
+      }
+    }
+  }
+
+  console.log('sortData', sortData.progress[0].bosses[0]);
   return sortData;
 }
-
 
 // Obtains total bosses in an instance
 function bossTotal(bossData) {
