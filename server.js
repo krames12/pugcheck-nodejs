@@ -19,7 +19,10 @@ app.get('/:region/:server/:characterName', (req, res) => {
 
 	Promise.all([getRequest(blizzRequestUrl, req, res), getRequest(wclRequestUrl, req, res)]).then(sortParsedData).then(function(sortData) {
     res.render('character-info', {info: sortData});
-  }).catch(errorHandle);
+  }).catch((err) => {
+    console.log(err);
+    res.render('character-404');
+  });
 });
 
 app.use(function(req, res, next) {
@@ -171,7 +174,10 @@ function sortParsedData(data) {
         };
       })
   };
-  console.log('sortData', sortData.progress[0].bosses);
+  
+  
+  
+  console.log('sortData', data[1]);
   return sortData;
 }
 
@@ -205,10 +211,6 @@ function difficultyProgress (difficulty, bossData) {
 function calculatePercentile(actualRank, totalRanked) {
   var percentage = Math.floor((actualRank / totalRanked) * 100);
   return Math.round((100 - percentage));
-}
-
-function errorHandle(err) {
-  originRes.render('character-404');
 }
 
 app.listen(8080, () => {
