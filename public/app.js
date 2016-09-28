@@ -15,15 +15,13 @@ $(document).ready(function() {
   $('.raid-instance').on('click', function() {
     toggleBossList();
   });
-
 });
 
 function toggleBossList() {
-  if($('.raid-bosses').hasClass('hidden')) {
-    $('.raid-bosses').removeClass('hidden').addClass('visible');
+  $('.raid-bosses').toggleClass('hidden');
+ if($('.collapse').hasClass('fa-plus')) {
     $('.collapse').removeClass('fa-plus').addClass('fa-minus');
   } else {
-    $('.raid-bosses').removeClass('visible').addClass('hidden');
-    $('.collapse').removeClass('fa-minus').addClass('fa-plus');
+   $('.collapse').removeClass('fa-minus').addClass('fa-plus');
   }
 }

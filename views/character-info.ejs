@@ -18,7 +18,7 @@
     </div>
     <div class="character-info">
       <p class="character-name"><%= info.name %></p>
-      <img src="/public/images/<%= info.class %>.png" alt="<%= info.class %> icon" class="class-icon <%= info.class %>" />
+      <img src="/public/images/<%= info.class %>.png" alt=<%= info.class %> class="class-icon <%= info.class %>" />
       <div class="item-level-container">
         <p class="item-level">
           Item Level: <span class="item-level"><%=info.itemLevel  %></span>
@@ -53,8 +53,8 @@
           <h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
           <p class="difficulty"><%= difficulty %></p>
           <p class="logs-header">
-            <span class="fa fa-link"></span>
             Logs
+            <span class="fa fa-link"></span>
           </p>
         </div>
         <ul class="raid-bosses hidden">

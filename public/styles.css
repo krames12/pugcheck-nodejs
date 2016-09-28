@@ -34,7 +34,7 @@ p {
 
 #search-form input[type=text], #region-name {
   background-color: #263238;
-  border: 1px solid #F24236;
+  border: 1px solid #29679a;
   padding: 3px;
 }
 
@@ -62,12 +62,12 @@ p {
   width: 150px;
   height: 50px;
   background-color: #263238;
-  border: 1px solid #F24236;
+  border: 1px solid #29679a;
   transition: all 0.3s ease-in-out;
 }
 
 #find-character-button:hover {
-  background-color: #F24236;
+  background-color: #29679a;
 }
 
 .class-icon {
@@ -152,8 +152,8 @@ p {
   width: 100%;
   max-width: 500px;
   padding: 10px;
-  border-top: 1px solid #F24236;
-  border-bottom: 1px solid #F24236;
+  border-top: 1px solid #29679a;
+  border-bottom: 1px solid #29679a;
 }
 
 .difficulty {
@@ -163,6 +163,7 @@ p {
 
 .raid-bosses {
   margin: 0 auto;
+  transition: all 0.2s ease-in-out;
 }
 
 .raid-bosses li {
@@ -170,11 +171,7 @@ p {
 }
 
 .hidden {
-  height: 0%;
-}
-
-.visible {
-  height: 100%;
+  display: none;
 }
 
 .instance-name {
