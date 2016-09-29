@@ -12,16 +12,17 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.raid-instance').on('click', function() {
-    toggleBossList();
+  $('.raid-instance-title').on('click', function() {
+    var current = $(this);
+    toggleBossList(current);
   });
 });
 
-function toggleBossList() {
-  $('.raid-bosses').toggleClass('hidden');
- if($('.collapse').hasClass('fa-plus')) {
-    $('.collapse').removeClass('fa-plus').addClass('fa-minus');
+function toggleBossList(current) {
+  current.parent('.raid-instance').find('.raid-bosses').toggleClass('hidden');
+ if(current.find('.collapse').hasClass('fa-plus')) {
+    current.find('.collapse').removeClass('fa-plus').addClass('fa-minus');
   } else {
-   $('.collapse').removeClass('fa-minus').addClass('fa-plus');
+   current.find('.collapse').removeClass('fa-minus').addClass('fa-plus');
   }
 }
