@@ -27,46 +27,45 @@
     </div>
 
     <h3>Raid Progression</h3>
-    <div class="raid-instance">
-      <% for(var i = 0; i < info.progress.length; i++) { %>
-        <!-- Setting the difficulty to the highest with progress -->
-        <% var difficulty = "", progress = 0, kills; %>
-        <% if(info.progress[i].mythicProgress > 0) { %>
-          <% difficulty = "Mythic"; %>
-          <% progress = info.progress[i].mythicProgress; %>
-        <% } else if(info.progress[i].heroicProgress > 0) { %>
-          <% difficulty = "Heroic"; %>
-          <% progress = info.progress[i].heroicProgress; %>
-          <!-- < kills = info.progress[i].heroicKills; %> -->
-        <% } else if(info.progress[i].normalProgress > 0) { %>
-          <% difficulty = "Normal"; %>
-          <% progress = info.progress[i].normalProgress; %>
-        <% } else if(info.progress[i].lfrProgress > 0) { %>
-          <% difficulty = "Looking for Raid"; %>
-          <% progress = info.progress[i].lfrProgress; %>
-        <% } else { %>
-          <% difficulty = "Looking For Raid"; %>
-        <% } %>
-
+      <!-- Setting the difficulty to the highest with progress -->
+      <% var difficulty = [], progress = [], kills; %>
+      <% if(info.progress[0].mythicProgress > 0) { %>
+        <% difficulty = ["Mythic", "Heroic"]; %>
+        <% progress = [info.progress[0].mythicProgress, info.progress[0].heroicProgress]; %>
+      <% } else if(info.progress[0].heroicProgress > 0) { %>
+        <% difficulty = ["Heroic", "Normal"]; %>
+        <% progress = [info.progress[0].heroicProgress, info.progress[0].normalProgress]; %>
+      <% } else if(info.progress[0].normalProgress > 0) { %>
+        <% difficulty = ["Normal", "Looking For Raid"]; %>
+        <% progress = [info.progress[0].normalProgress, info.progress[0].lfrProgress]; %>
+      <% } else if(info.progress[0].lfrProgress > 0) { %>
+        <% difficulty = ["Looking For Raid"]; %>
+        <% progress = [info.progress[0].lfrProgress]; %>
+      <% } else { %>
+        <% difficulty = ["Looking For Raid"]; %>
+        <% progress = [info.progress[0].lfrProgress]; %>
+      <% } %>
+      <% for(var i = 0; i < difficulty.length; i++) { %>
+      <div class="raid-instance">
         <div class="raid-instance-title">
           <span class="collapse fa fa-plus"></span>
-          <h5 class="instance-name"><%= info.progress[i].name %> (<%= progress %>/<%= info.progress[i].totalBosses %>)</h5>
-          <p class="difficulty"><%= difficulty %></p>
+          <h5 class="instance-name"><%= info.progress[0].name %> (<%= progress[i] %>/<%= info.progress[0].totalBosses %>)</h5>
+          <p class="difficulty"><%= difficulty[i] %></p>
           <p class="logs-header">
             Logs
             <span class="fa fa-link"></span>
           </p>
         </div>
         <ul class="raid-bosses hidden">
-          <% for(var b = 0; b < info.progress[i].bosses.length; b++) { %>
-            <% if(difficulty == "Mythic") { %>
-              <% kills = info.progress[i].bosses[b].mythicKills; %>
-            <% } else if(difficulty == "Heroic") { %>
-              <% kills = info.progress[i].bosses[b].heroicKills; %>
-            <% } else if(difficulty == "Normal") { %>
-              <% kills = info.progress[i].bosses[b].normalKills; %>
-            <% } else if(difficulty == "Looking for Raid") { %>
-              <% kills = info.progress[i].bosses[b].lfrKills; %>
+          <% for(var b = 0; b < info.progress[0].bosses.length; b++) { %>
+            <% if(difficulty[i] == "Mythic") { %>
+              <% kills = info.progress[0].bosses[b].mythicKills; %>
+            <% } else if(difficulty[i] == "Heroic") { %>
+              <% kills = info.progress[0].bosses[b].heroicKills; %>
+            <% } else if(difficulty[i] == "Normal") { %>
+              <% kills = info.progress[0].bosses[b].normalKills; %>
+            <% } else if(difficulty[i] == "Looking for Raid") { %>
+              <% kills = info.progress[0].bosses[b].lfrKills; %>
             <% } %>
             <li>
               <% if(kills > 0) { %>
@@ -74,13 +73,14 @@
               <% } else { %>
                 <span class="killed-box fa fa-square-o"></span>
               <% } %>
-              <%= info.progress[i].bosses[b].name %>
-              <% if(info.progress[i].bosses[b].warcraftLogs && difficulty == info.progress[i].bosses[b].highestDifficulty) { %>
-                <a href=<%= info.progress[i].bosses[b].reportUrl %> class="warcraftlog-report fa fa-link"></a>
+              <%= info.progress[0].bosses[b].name %>
+              <% if(info.progress[0].bosses[b].warcraftLogs && difficulty[i] == info.progress[0].bosses[b].highestDifficulty) { %>
+                <a href=<%= info.progress[0].bosses[b].reportUrl %> class="warcraftlog-report fa fa-link"></a>
               <% } %>
             </li>
           <% } %>
         </ul>
+      </div>
       <% } %>
     </div>
 

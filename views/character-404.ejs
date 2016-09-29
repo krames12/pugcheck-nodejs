@@ -12,12 +12,13 @@
     <title>Document</title>
 </head>
 <body>
+  <div class="search-container">
     <% include partials/search-form.ejs %>
+  </div>
+  <p id="error-message">
+    That character or server cannot be found!
+  </p>
 
-    <p>
-      That character or server cannot be found!
-    </p>
-
-    <script src="/public/app.js"></script>
+  <script src="/public/app.js"></script>
 </body>
 </html>

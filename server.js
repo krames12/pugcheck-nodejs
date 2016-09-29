@@ -55,7 +55,7 @@ function getRequest(requestUrl, originReq, originRes) {
           return reject(err);
         }
         console.log("statusCodev2: " + res.statusCode);
-        if (res.statusCode !== 404){
+        if (res.statusCode !== 404 || 504){
           resolve(parsed);
         } else {
           reject()
@@ -195,7 +195,6 @@ function sortParsedData(data) {
 
     for(var p = 0; p < logData.length; p++) {
       if (currentBoss.bossId === logData[p].encounter && difficulty === logData[p].difficulty) {
-        console.log(currentBoss.name + "!!");
         var reportUrl = "https://www.warcraftlogs.com/reports/" + logData[p].reportID;
         currentBoss.warcraftLogs = true;
         currentBoss.reportUrl = reportUrl;
@@ -203,7 +202,7 @@ function sortParsedData(data) {
     }
   }
 
-  console.log('sortData', sortData.progress[0].bosses[0]);
+  console.log('Request made for', sortData.name, "on the realm", sortData.realm);
   return sortData;
 }
 

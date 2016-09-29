@@ -70,6 +70,11 @@ p {
   background-color: #29679a;
 }
 
+#error-message {
+  text-align: center;
+  margin-top: 20px;
+}
+
 .class-icon {
   margin: 10px auto;
   padding: 10px;
@@ -204,4 +209,10 @@ p {
 
 footer {
   text-align: center;
+}
+
+.github-icon {
+  color: white;
+  transform: scale(1.5);
+  margin: 5px;
 }
