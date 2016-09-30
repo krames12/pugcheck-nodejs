@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
 
 app.get('/:region/:server/:characterName', (req, res) => {
   var cleanCharacterName = htmlEncode(req.params.characterName),
-    blizzRequestUrl = 'https://' + req.params.region + '.api.battle.net/wow/character/' + req.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + access.keys.blizz,
-    wclRequestUrl = 'https://www.warcraftlogs.com:443/v1/rankings/character/' + cleanCharacterName + '/' + req.params.server + '/' + req.params.region + '?api_key=' + access.keys.wcl;
+    blizzRequestUrl = 'https://' + req.params.region + '.api.battle.net/wow/character/' + req.params.server +  '/' + cleanCharacterName + '?fields=progression,items&locale=en_US&apikey=' + process.env.BLIZZ_KEY,
+    wclRequestUrl = 'https://www.warcraftlogs.com:443/v1/rankings/character/' + cleanCharacterName + '/' + req.params.server + '/' + req.params.region + '?api_key=' + process.env.WCL_KEY;
 
 	Promise.all([getRequest(blizzRequestUrl, req, res), getRequest(wclRequestUrl, req, res)]).then(sortParsedData).then(function(sortData) {
     res.render('character-info', {info: sortData});
