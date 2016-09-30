@@ -181,6 +181,7 @@ p {
 
 .instance-name {
   text-align: center;
+  font-size: 1em;
 }
 
 .killed-box {
@@ -196,7 +197,6 @@ p {
 
 .warcraftlog-report, .warcraftlog-report:hover, .warcraftlog-report.visited {
   float: right;
-  margin-right: 5px;
   color: white;
   text-decoration: none;
 }
@@ -209,10 +209,28 @@ p {
 
 footer {
   text-align: center;
+  font-size: 0.75em;
+  margin: 10px;
 }
 
-.github-icon {
+.social-icon, .social-icon:visited {
   color: white;
-  transform: scale(1.5);
+  font-size: 2em;
   margin: 5px;
+  transition: all 0.2s ease-in-out;
+}
+
+.social-icon:hover, .footer-credit:hover {
+  color: #29679a;
+  text-decoration: none;
+}
+
+.credit {
+  margin-top: 5px;
+}
+
+.footer-credit {
+  color: white;
+  font-weight: 500;
+  transition: all 0.1s ease-in-out;
 }
