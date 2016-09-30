@@ -18,11 +18,17 @@ p {
   margin: auto;
 }
 
-.title {
+a:hover {
+  text-decoration: none;
+}
+
+.title, .title:hover, .title:visited {
   font-size:1.75em;
   text-align: center;
   margin: 10px;
   font-weight: 300;
+  color: white;
+  text-decoration: none;
 }
 
 .title strong {
