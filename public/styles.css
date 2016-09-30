@@ -18,6 +18,17 @@ p {
   margin: auto;
 }
 
+.title {
+  font-size:1.75em;
+  text-align: center;
+  margin: 10px;
+  font-weight: 300;
+}
+
+.title strong {
+  font-weight: 500;
+}
+
 .search-container {
   display: flex;
   align-items: center;
@@ -25,7 +36,7 @@ p {
 }
 
 #search-form {
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 #search-form input, #search-form label {
