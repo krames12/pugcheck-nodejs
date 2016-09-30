@@ -1,6 +1,5 @@
 const https = require('https');
 const express = require('express');
-const access = require('./access');
 const app = express();
 
 // setting ejs as templating engine
