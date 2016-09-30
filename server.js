@@ -2,6 +2,8 @@ const https = require('https');
 const express = require('express');
 const app = express();
 
+var port = process.env.PORT || 8080
+
 // setting ejs as templating engine
 app.set('view engine', 'ejs');
 // allowing access to public folder from the server
@@ -230,6 +232,6 @@ function difficultyProgress (difficulty, bossData) {
   return progress;
 }
 
-app.listen(8080, () => {
-    console.log('app is listening to port 8080');
+app.listen(port, () => {
+    console.log('app is listening to port', port);
 });
