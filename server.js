@@ -196,7 +196,7 @@ function sortParsedData(data) {
 
     for(var p = 0; p < logData.length; p++) {
       if (currentBoss.bossId === logData[p].encounter && difficulty === logData[p].difficulty) {
-        var reportUrl = "https://www.warcraftlogs.com/reports/" + logData[p].reportID;
+        var reportUrl = "https://www.warcraftlogs.com/reports/" + logData[p].reportID + "#fight=" + logData[p].fightID;
         currentBoss.warcraftLogs = true;
         currentBoss.reportUrl = reportUrl;
       }
