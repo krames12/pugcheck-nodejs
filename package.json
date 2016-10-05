@@ -1,6 +1,6 @@
 {
   "name": "warcarft-character-progress",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple character progression lookup tool for raid leaders and recruitment officers in World of Warcraft guilds and raid teams.",
   "main": "server.js",
   "scripts": {
