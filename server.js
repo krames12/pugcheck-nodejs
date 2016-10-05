@@ -98,7 +98,7 @@ function sortParsedData(data) {
   // sorting out character info and progress info
   var sortData = {
     name: data[0].name,
-    class: lookupClassId(data[0].class),
+    class: lookupClassName(data[0].class),
     realm: data[0].realm,
     itemLevel: data[0].items.averageItemLevel,
     progress: data[0].progression.raids
