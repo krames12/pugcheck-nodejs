@@ -163,13 +163,8 @@ function sortParsedData(data) {
 
 // Obtains total bosses in an instance
 function bossTotal(bossData) {
-  var bossCount = 0;
 
-  for(var b = 0; b < bossData.length; b++) {
-    bossCount++;
-  }
-
-  return bossCount;
+  return bossData.length;
 }
 
 // Obtains bosses killed for a given raid difficulty
