@@ -1,6 +1,9 @@
 const https = require('https');
 const express = require('express');
 const app = express();
+const lookups = require('./utils/lookups');
+const lookupClassName = lookups.lookupClassName;
+const lookupBossId = lookups.lookupBossId;
 
 var port = process.env.PORT || 8080
 
@@ -90,65 +93,12 @@ function htmlEncode(characterName) {
   return encoded.join('');
 }
 
-// determining character's class based on class id sent from the API
-function classIdentity(classId) {
-  switch (classId) {
-    case 1:
-      return "warrior"
-    case 2:
-      return "paladin"
-    case 3:
-      return "hunter"
-    case 4:
-      return "rogue"
-    case 5:
-      return "priest"
-    case 6:
-      return "death-knight"
-    case 7:
-      return "shaman"
-    case 8:
-      return "mage"
-    case 9:
-      return "warlock"
-    case 10:
-      return "monk"
-    case 11:
-      return "druid"
-    case 12:
-      return "demon-hunter"
-    default:
-      return null
-  }
-}
-
-// determine raid boss ID based on WarcraftLogs seperate ID
-function wclBossId(bossId) {
-  // Emerald Nightmare Boss Id's
-  switch(bossId) {
-    case "Nythendra":
-      return 1853
-    case "Il'gynoth, Heart of Corruption":
-      return 1873
-    case "Elerethe Renferal":
-      return 1876
-    case "Ursoc":
-      return 1841
-    case "Dragons of Nightmare":
-      return 1854
-    case "Cenarius":
-      return 1877
-    case "Xavius":
-      return 1864
-  }
-}
-
 // overall sorting and filtering of data
 function sortParsedData(data) {
   // sorting out character info and progress info
   var sortData = {
     name: data[0].name,
-    class: classIdentity(data[0].class),
+    class: lookupClassName(data[0].class),
     realm: data[0].realm,
     itemLevel: data[0].items.averageItemLevel,
     progress: data[0].progression.raids
@@ -163,7 +113,7 @@ function sortParsedData(data) {
           bosses: item.bosses.map((item, index) => {
             return {
               name: item.name,
-              bossId: wclBossId(item.name),
+              bossId: lookupBossId(item.name),
               lfrKills: item.lfrKills,
               normalKills: item.normalKills,
               heroicKills: item.heroicKills,
