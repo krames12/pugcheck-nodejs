@@ -121,7 +121,7 @@ function sortParsedData(data) {
               warcraftLogs: false
             }
           }),
-          totalBosses: bossTotal(item.bosses),
+          totalBosses: item.bosses.length,
           lfrProgress: difficultyProgress("lfr", item),
           normalProgress: difficultyProgress("normal", item),
           heroicProgress: difficultyProgress("heroic", item),
@@ -159,17 +159,6 @@ function sortParsedData(data) {
 
   console.log('Request made for', sortData.name, "on the realm", sortData.realm);
   return sortData;
-}
-
-// Obtains total bosses in an instance
-function bossTotal(bossData) {
-  var bossCount = 0;
-
-  for(var b = 0; b < bossData.length; b++) {
-    bossCount++;
-  }
-
-  return bossCount;
 }
 
 // Obtains bosses killed for a given raid difficulty
