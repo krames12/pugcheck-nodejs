@@ -50,11 +50,10 @@
       <div class="raid-instance">
         <div class="raid-instance-title">
           <span class="collapse fa fa-plus"></span>
-          <h5 class="instance-name"><%= info.progress[0].name %> (<%= progress[i] %>/<%= info.progress[0].totalBosses %>)</h5>
-          <p class="difficulty"><%= difficulty[i] %></p>
+          <h5 class="instance-name"><%= info.progress[0].name %></h5>
+          <p class="difficulty"><%= progress[i] %>/<%= info.progress[0].totalBosses %> <%= difficulty[i] %></p>
           <p class="logs-header">
             Logs
-            <span class="fa fa-link"></span>
           </p>
         </div>
         <ul class="raid-bosses hidden">
