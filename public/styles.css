@@ -9,6 +9,11 @@ h3 {
   font-size: 1.3em;
 }
 
+h4 {
+  text-align: center;
+  padding: 5px;
+}
+
 p {
   font-size: 1em;
 }
