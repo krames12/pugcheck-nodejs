@@ -217,7 +217,7 @@ a:hover {
   margin-top: -30px;
 }
 
-.warcraftlog-report, .warcraftlog-report:hover, .warcraftlog-report.visited {
+.warcraftlog-report, .warcraftlog-report:hover, .warcraftlog-report:visited, .warcraftlog-report:active {
   float: right;
   color: white;
   text-decoration: none;
