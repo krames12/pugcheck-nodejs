@@ -26,13 +26,19 @@ const lookupClassId = className => {
 
 
 const bossMap = {
+  // Emerald Nightmare
   "Nythendra": 1853,
   "Il'gynoth, Heart of Corruption": 1873,
   "Elerethe Renferal": 1876,
   "Ursoc": 1841,
   "Dragons of Nightmare": 1854,
   "Cenarius": 1877,
-  "Xavius": 1864
+  "Xavius": 1864,
+  
+  // Trial of Valor
+  "Odyn": 1958,
+  "Guarm": 1962,
+  "Helya": 2008
 };
 
 const lookupBossId = bossName => {
