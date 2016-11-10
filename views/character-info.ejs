@@ -28,7 +28,7 @@
     </div>
 
     <h3>Raid Progression</h3>
-    <% for(var r = 0; r < info.progress.length; r++) { %>
+    <% for(var r = (info.progress.length - 1); r >= 0; r--) { %>
       <!-- Setting the difficulty to the highest with progress -->
       <% var difficulty = [], progress = [], kills; %>
       <% if(info.progress[r].mythicProgress > 0) { %>
@@ -83,8 +83,8 @@
         </ul>
       </div>
       <% } %>
-      <% } %>
-    </div>
+    <% } %>
+  </div>
 
     <% include partials/footer.ejs %>
   </div>
