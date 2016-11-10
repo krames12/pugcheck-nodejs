@@ -28,44 +28,45 @@
     </div>
 
     <h3>Raid Progression</h3>
+    <% for(var r = 0; r < info.progress.length; r++) { %>
       <!-- Setting the difficulty to the highest with progress -->
       <% var difficulty = [], progress = [], kills; %>
-      <% if(info.progress[0].mythicProgress > 0) { %>
+      <% if(info.progress[r].mythicProgress > 0) { %>
         <% difficulty = ["Mythic", "Heroic"]; %>
-        <% progress = [info.progress[0].mythicProgress, info.progress[0].heroicProgress]; %>
-      <% } else if(info.progress[0].heroicProgress > 0) { %>
+        <% progress = [info.progress[r].mythicProgress, info.progress[r].heroicProgress]; %>
+      <% } else if(info.progress[r].heroicProgress > 0) { %>
         <% difficulty = ["Heroic", "Normal"]; %>
-        <% progress = [info.progress[0].heroicProgress, info.progress[0].normalProgress]; %>
-      <% } else if(info.progress[0].normalProgress > 0) { %>
+        <% progress = [info.progress[r].heroicProgress, info.progress[r].normalProgress]; %>
+      <% } else if(info.progress[r].normalProgress > 0) { %>
         <% difficulty = ["Normal", "Looking For Raid"]; %>
-        <% progress = [info.progress[0].normalProgress, info.progress[0].lfrProgress]; %>
-      <% } else if(info.progress[0].lfrProgress > 0) { %>
+        <% progress = [info.progress[r].normalProgress, info.progress[r].lfrProgress]; %>
+      <% } else if(info.progress[r].lfrProgress > 0) { %>
         <% difficulty = ["Looking For Raid"]; %>
-        <% progress = [info.progress[0].lfrProgress]; %>
+        <% progress = [info.progress[r].lfrProgress]; %>
       <% } else { %>
         <% difficulty = ["Looking For Raid"]; %>
-        <% progress = [info.progress[0].lfrProgress]; %>
+        <% progress = [info.progress[r].lfrProgress]; %>
       <% } %>
       <% for(var i = 0; i < difficulty.length; i++) { %>
       <div class="raid-instance">
         <div class="raid-instance-title">
           <span class="collapse fa fa-plus"></span>
-          <h5 class="instance-name"><%= info.progress[0].name %></h5>
-          <p class="difficulty"><%= progress[i] %>/<%= info.progress[0].totalBosses %> <%= difficulty[i] %></p>
+          <h5 class="instance-name"><%= info.progress[r].name %></h5>
+          <p class="difficulty"><%= progress[i] %>/<%= info.progress[r].totalBosses %> <%= difficulty[i] %></p>
           <p class="logs-header">
             Logs
           </p>
         </div>
         <ul class="raid-bosses hidden">
-          <% for(var b = 0; b < info.progress[0].bosses.length; b++) { %>
+          <% for(var b = 0; b < info.progress[r].bosses.length; b++) { %>
             <% if(difficulty[i] == "Mythic") { %>
-              <% kills = info.progress[0].bosses[b].mythicKills; %>
+              <% kills = info.progress[r].bosses[b].mythicKills; %>
             <% } else if(difficulty[i] == "Heroic") { %>
-              <% kills = info.progress[0].bosses[b].heroicKills; %>
+              <% kills = info.progress[r].bosses[b].heroicKills; %>
             <% } else if(difficulty[i] == "Normal") { %>
-              <% kills = info.progress[0].bosses[b].normalKills; %>
+              <% kills = info.progress[r].bosses[b].normalKills; %>
             <% } else if(difficulty[i] == "Looking for Raid") { %>
-              <% kills = info.progress[0].bosses[b].lfrKills; %>
+              <% kills = info.progress[r].bosses[b].lfrKills; %>
             <% } %>
             <li>
               <% if(kills > 0) { %>
@@ -73,14 +74,15 @@
               <% } else { %>
                 <span class="killed-box fa fa-square-o"></span>
               <% } %>
-              <%= info.progress[0].bosses[b].name %>
-              <% if(info.progress[0].bosses[b].warcraftLogs && difficulty[i] == info.progress[0].bosses[b].highestDifficulty) { %>
-                <a href=<%= info.progress[0].bosses[b].reportUrl %> class="warcraftlog-report fa fa-link"></a>
+              <%= info.progress[r].bosses[b].name %>
+              <% if(info.progress[r].bosses[b].warcraftLogs && difficulty[i] == info.progress[r].bosses[b].highestDifficulty) { %>
+                <a href=<%= info.progress[r].bosses[b].reportUrl %> class="warcraftlog-report fa fa-link"></a>
               <% } %>
             </li>
           <% } %>
         </ul>
       </div>
+      <% } %>
       <% } %>
     </div>
 
