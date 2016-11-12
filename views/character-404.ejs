@@ -22,14 +22,16 @@
     </script>
 </head>
 <body>
-  <a href="http://www.pugcheck.com"><h1 class="title"><strong>Pug</strong>Check</h1></a>
+  <a href="/"><h1 class="title"><strong>Pug</strong>Check</h1></a>
   <div class="search-container">
     <% include partials/search-form.ejs %>
   </div>
   <p id="error-message">
     That character or server cannot be found!
   </p>
-
+  
+  <% include partials/footer.ejs %>
+  
   <script src="/public/app.js"></script>
 </body>
 </html>
