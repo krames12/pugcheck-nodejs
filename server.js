@@ -106,7 +106,7 @@ function sortParsedData(data) {
     itemLevel: data[0].items.averageItemLevel,
     progress: data[0].progression.raids
       .filter((item, index) => {
-        if(item.name == "Trial of Valor" || item.name == "The Emerald Nightmare") {
+        if(item.name == "The Nighthold") {
           return item;
         }
       })
