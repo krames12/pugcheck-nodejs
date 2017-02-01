@@ -24,7 +24,7 @@ app.get('/:region/:server/:characterName', (req, res) => {
   const wclKey = process.env.WCL_KEY;
   const cleanCharacterName = htmlEncode(req.params.characterName);
   const blizzRequestUrl = `https://${region}.api.battle.net/wow/character/${serverDash}/${cleanCharacterName}?fields=progression,items&locale=en_US&apikey=${blizzKey}`;
-  const wclRequestUrl = `https://www.warcraftlogs.com:443/v1/rankings/character/${cleanCharacterName}/${serverDash}/${region}?zone=10-&api_key=${wclKey}`;
+  const wclRequestUrl = `https://www.warcraftlogs.com:443/v1/rankings/character/${cleanCharacterName}/${serverDash}/${region}?api_key=${wclKey}`;
 
   console.log('server', serverDash);
 
